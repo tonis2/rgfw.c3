@@ -17,23 +17,6 @@ const NO_INIT_API = (1L<<2);
 const NO_GPU_RENDER = (1L<<14);
 const NO_CPU_RENDER = (1L<<15);
 
-const KEY_PRESSED = 2;
-const KEY_RELEASED = 3;
-
-const MOUSE_PRESSED = 4;
-const MOUSE_RELEASED = 5;
-const MOUSE_POS_CHANGED = 6;
-
-const QUIT = 33;
-const DND = 34;
-const DND_INIT = 35;
-
-const LEFT_MOUSE = 1;
-const RIGHT_MOUSE = 2;
-const MIDDLE_MOUSE = 3;
-const MOUSE_SCROLL_UP = 4;
-const MOUSE_SCROLL_DOWN = 5;
-
 def Byte =  char;
 def UInt16 =  ushort;
 def UInt32 =  uint;
@@ -59,16 +42,151 @@ struct Area {
 const MAX_DROPS = 260;
 const MAX_PATH = 260;
 
+enum EventType : UInt32 (UInt32 value)
+{
+    KEY_PRESSED = 1,
+    KEY_RELEASED = 2,
+    MOUSE_PRESSED = 3,
+    MOUSE_RELEASED = 4,
+    MOUSE_POS_CHANGED = 6,
+    WINDOW_REFRESH = 16,
+
+    QUIT = 32,
+    DND = 33,
+    DND_INIT = 34,
+}
+
+enum MouseEvent : UInt32 (UInt32 value)
+{
+    LEFT_MOUSE = 1,
+    RIGHT_MOUSE = 2,
+    MIDDLE_MOUSE = 3,
+    MOUSE_SCROLL_UP = 4,
+    MOUSE_SCROLL_DOWN = 5,
+}
+
+
+enum Key : Byte {
+    KEY_NULL,
+    ESCAPE,
+    F1,
+    F2,
+    F3,
+    F4,
+    F5,
+    F6,
+    F7,
+    F8,
+    F9,
+    F10,
+    F11,
+    F12,
+
+    BACKTICK,
+
+    KEY_0,
+    KEY_1,
+    KEY_2,
+    KEY_3,
+    KEY_4,
+    KEY_5,
+    KEY_6,
+    KEY_7,
+    KEY_8,
+    KEY_9,
+
+    MINUS,
+    EQUAL,
+    BACKSPACE,
+    TAB,
+    CAPSLOCK,
+    SHIFT_R,
+    CONTROL_L,
+    ALT_L,
+    SUPER_L,
+    SHIFT_L,
+    CONTROL_R,
+    ALT_R,
+    SUPER_R,
+    SPACE,
+
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J,
+    K,
+    L,
+    M,
+    N,
+    O,
+    P,
+    Q,
+    R,
+    S,
+    T,
+    U,
+    V,
+    W,
+    X,
+    Y,
+    Z,
+
+    // Period,
+    // Comma,
+    // Slash,
+    // Bracket,
+    // CloseBracket,
+    // Semicolon,
+    // Return,
+    // Quote,
+    // BackSlash,
+
+    // Up,
+    // Down,
+    // Left,
+    // Right,
+
+    // Delete,
+    // Insert,
+    // End,
+    // Home,
+    // PageUp,
+    // PageDown,
+
+    // Numlock,
+    // KP_Slash,
+    // Multiply,
+    // KP_Minus,
+    // KP_1,
+    // KP_2,
+    // KP_3,
+    // KP_4,
+    // KP_5,
+    // KP_6,
+    // KP_7,
+    // KP_8,
+    // KP_9,
+    // KP_0,
+    // KP_Period,
+    // KP_Return
+}
+
 struct Event {
     Byte[16] keyName;
 	Byte[MAX_DROPS][MAX_PATH] droppedFiles;
 	UInt32 droppedFilesCount; 
-	UInt32 type;
+	EventType type;
 	Vec2 point;
 	UInt32 fps;
 	UInt64 frameTime; 
     UInt64 frameTime2;
-	Byte keyCode;
+	Key keyCode;
 	Byte inFocus;
 	Byte lockState;
 	UInt16 joystick; 
@@ -111,4 +229,4 @@ struct Window {
 extern fn Window* createWindow(Byte* name, Rect rect, UInt16 args) @extern("RGFW_createWindow");
 extern fn Event* checkEvent(Window* win) @extern("RGFW_window_checkEvent");
 extern fn void close(Window* win) @extern("RGFW_window_close");
-extern fn bool isPressed(Window* win, Byte value) @extern("RGFW_isPressed");
+extern fn bool isPressed(Window* win, EventType value) @extern("RGFW_isPressed");

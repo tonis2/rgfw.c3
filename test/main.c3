@@ -11,10 +11,11 @@ fn void! main(String[] args)
 
     bool running = true;
 
-    while (running && !rgfw::isPressed(win, rgfw::QUIT)) {
+    while (running) {
         rgfw::Event* events = rgfw::checkEvent(win);
-        if(events != null) io::printfn("%d", events.type);
-        // if (events != null && events.type == rgfw::QUIT) running = false;
-    }
-    
+        if (events != null) {
+            io::printfn("event type %d", events.type);
+            if (events.keyCode == Key.ESCAPE) running = false;
+        }
+    }   
 }
