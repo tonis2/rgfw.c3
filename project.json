@@ -2,7 +2,7 @@
 
     "langrev": "1",
     "warnings": [ "no-unused" ],
-    "dependencies": ["rgfw"],
+    "dependencies": ["rgfw", "vk"],
     "features": [],
     "version": "0.1.0",
     "output": "build",
@@ -10,6 +10,10 @@
       "main": {
         "type": "executable",
         "sources-add": ["test/main.c3"]
+      },
+      "vk": {
+        "type": "executable",
+        "sources-add": ["test/vulkan.c3"]
       }
     },
     "cpu": "generic",
