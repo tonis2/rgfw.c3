@@ -1,0 +1,15 @@
+{ 
+  "provides" : "rgfw",
+  "c-sources" : ["rgfw.c"],
+  "cflags": "-fPIE -D RGFW_NO_X11_CURSOR -D RGFW_VULKAN_IMPLEMENTATION -D RGFW_NO_API -D RGFW_IMPLEMENTATION",
+  "sources": ["rgfw.c3"],
+  "targets" : {
+    "macos-x64" : {
+      "linked-libs" : ["vulkan"]
+    },
+    "linux-x64" : {
+      "linked-libs" : ["X11", "Xrandr", "vulkan"]
+    },
+    "windows-x64" : {}
+  }
+}
