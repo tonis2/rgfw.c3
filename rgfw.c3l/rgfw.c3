@@ -34,7 +34,7 @@ const MIDDLE_MOUSE = 3;
 const MOUSE_SCROLL_UP = 4;
 const MOUSE_SCROLL_DOWN = 5;
 
-def UInt8 =  char;
+def Byte =  char;
 def UInt16 =  ushort;
 def UInt32 =  uint;
 def UInt64 =  ulong;
@@ -57,22 +57,24 @@ struct Area {
 }
 
 const MAX_DROPS = 260;
+const MAX_PATH = 260;
 
 struct Event {
-    UInt8[16] keyName;
-	UInt8* droppedFiles;
+    Byte[16] keyName;
+	Byte[MAX_DROPS][MAX_PATH] droppedFiles;
 	UInt32 droppedFilesCount; 
 	UInt32 type;
 	Vec2 point;
 	UInt32 fps;
-	UInt64 frameTime, frameTime2;
-	UInt8 keyCode;
-	UInt8 inFocus;
-	UInt8 lockState;
+	UInt64 frameTime; 
+    UInt64 frameTime2;
+	Byte keyCode;
+	Byte inFocus;
+	Byte lockState;
 	UInt16 joystick; 
-	UInt8 button;
+	Byte button;
 	double scroll;
-	UInt8 axisesCount;
+	Byte axisesCount;
 	Vec2[2] axis;
 }
 
@@ -80,7 +82,7 @@ struct DarwinWindow {
 	UInt32 display;
     void* displayLink;
     void* window;
-    UInt8 dndPassed;
+    Byte dndPassed;
     void* ctx; 
     void* view; 
 
@@ -99,14 +101,14 @@ struct LinuxWindow {
 struct Window {
     DarwinWindow src @if(env::os_is_darwin());
 	LinuxWindow src @if(env::LINUX);
-	UInt8* buffer;
+	Byte* buffer;
     Event event;
     Rect rect;
     UInt32 fps_cap;
     UInt32 args;
 }
 
-extern fn Window* createWindow(UInt8* name, Rect rect, UInt16 args) @extern("RGFW_createWindow");
+extern fn Window* createWindow(Byte* name, Rect rect, UInt16 args) @extern("RGFW_createWindow");
 extern fn Event* checkEvent(Window* win) @extern("RGFW_window_checkEvent");
 extern fn void close(Window* win) @extern("RGFW_window_close");
-extern fn bool isPressed(Window* win, UInt8 value) @extern("RGFW_isPressed");
+extern fn bool isPressed(Window* win, Byte value) @extern("RGFW_isPressed");
