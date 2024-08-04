@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.ts": "typescript",
+        "xatom.h": "c",
+        "xresource.h": "c"
+    }
+}

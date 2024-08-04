@@ -1,5 +1,7 @@
 module rgfw;
 import std::math;
+import std::os::win32;
+import vk;
 
 const TRANSPARENT_WINDOW = (1L<<9);
 const NO_BORDER = (1L<<3);
@@ -208,9 +210,19 @@ struct DarwinWindow {
     void* image;
 }
 
+struct Win32Window {
+    Win32_HWND window;
+    Win32_HANDLE hdc;
+    UInt32 hOffset;
+    void* ctx;
+    void* bitmap;
+    Area maxSize; 
+    Area minSize; 
+}
+
 struct LinuxWindow {
-  	void* display;
-    void* window;
+  	vk::XDisplay display;
+    vk::XWindow window;
     void* ctx;
     void* bitmap;
     void* gc;
@@ -219,6 +231,7 @@ struct LinuxWindow {
 struct Window {
     DarwinWindow src @if(env::os_is_darwin());
 	LinuxWindow src @if(env::LINUX);
+    Win32Window src @if(env::WIN32);
 	Byte* buffer;
     Event event;
     Rect rect;

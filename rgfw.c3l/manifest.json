@@ -1,7 +1,7 @@
 { 
   "provides" : "rgfw",
   "c-sources" : ["rgfw.c"],
-  "cflags": "-fPIE -D RGFW_NO_X11_CURSOR -D RGFW_VULKAN_IMPLEMENTATION -D RGFW_NO_API -D RGFW_IMPLEMENTATION",
+  "cflags": "-fPIE -D RGFW_NO_X11_CURSOR -D RGFW_VULKAN_IMPLEMENTATION -D RGFW_NO_API -D RGFW_IMPLEMENTATION -D RGFW_NO_X11_CURSOR",
   "sources": ["rgfw.c3"],
   "targets" : {
     "macos-x64" : {
